@@ -109,3 +109,39 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+/* src/index.css */
+
+/* 1. Definición del movimiento de nado (Izquierda a Derecha) */
+@keyframes swimLoop {
+  0%   { transform: translateX(-100px) scaleX(1); }
+  45%  { transform: translateX(80vw) scaleX(1); } /* Ida */
+  50%  { transform: translateX(80vw) scaleX(-1); } /* Vuelta giro */
+  95%  { transform: translateX(-100px) scaleX(-1); } /* Regreso */
+  100% { transform: translateX(-100px) scaleX(1); } /* Giro inicio */
+}
+
+/* 2. Definición del movimiento de boqueo errático (Arriba y Abajo rápido) */
+@keyframes gaspPanic {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(10px, -5px) rotate(-10deg); }
+  50%  { transform: translate(20px, 5px) rotate(10deg); }
+  75%  { transform: translate(-10px, 0) rotate(-5deg); }
+}
+
+/* Clases que se aplican al contenedor de cada pez */
+.fish-container {
+  will-change: transform; /* Optimización de hardware */
+}
+
+/* Nado normal y lento (Óptimo o Calor) */
+.fish-container.calm {
+  animation-name: swimLoop;
+  animation-iteration-count: infinite;
+}
+
+/* Nado errático (Falta O2) - Combina swimLoop lento con gasPanic rápido */
+.fish-container.panic {
+  animation-name: swimLoop, gaspPanic;
+  animation-iteration-count: infinite, infinite;
+  animation-duration: 4s, 0.5s; /* Regla de tiempos específica */
+}
